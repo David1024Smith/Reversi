@@ -17,8 +17,10 @@
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsBlurEffect>
-#include <QRandomGenerator>
+#include <QTime>
 #include <QHash>
+#include <QDebug>
+
 const int BOARD_SIZE = 8; // Renamed for consistency and clarity
 
 enum AIMode {

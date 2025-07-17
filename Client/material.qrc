@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/images">
+        <file>images/othello_cover.png</file>
         <file>images/othello.png</file>
     </qresource>
 </RCC>

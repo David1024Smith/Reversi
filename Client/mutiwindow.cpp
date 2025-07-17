@@ -18,7 +18,7 @@ MutiWindow::MutiWindow(QWidget *parent) : QWidget(parent), ui(new Ui::MutiWindow
 
     // 连接信号和槽
     connect(socket, &QTcpSocket::connected, this, &MutiWindow::onConnected);
-    connect(socket, &QTcpSocket::errorOccurred, this, &MutiWindow::onErrorOccurred);
+    connect(socket, static_cast<void(QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error), this, &MutiWindow::onErrorOccurred);
     connect(socket, &QTcpSocket::readyRead, this, &MutiWindow::readServer);
 }
 
@@ -165,12 +165,12 @@ void MutiWindow::attemptConnection(const QString &ip, int port) {
 
     // 断开之前的连接
     disconnect(socket, &QTcpSocket::connected, this, &MutiWindow::onConnected);
-    disconnect(socket, &QTcpSocket::errorOccurred, this, &MutiWindow::onErrorOccurred);
+    disconnect(socket, static_cast<void(QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error), this, &MutiWindow::onErrorOccurred);
     disconnect(socket, &QTcpSocket::readyRead, this, &MutiWindow::readServer);
 
     // 重新连接信号和槽
     connect(socket, &QTcpSocket::connected, this, &MutiWindow::onConnected);
-    connect(socket, &QTcpSocket::errorOccurred, this, &MutiWindow::onErrorOccurred);
+    connect(socket, static_cast<void(QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error), this, &MutiWindow::onErrorOccurred);
     connect(socket, &QTcpSocket::readyRead, this, &MutiWindow::readServer);
 
     socket->connectToHost(ip, port);
@@ -182,7 +182,7 @@ void MutiWindow::readServer() {
     QString receivedMsg = QString::fromUtf8(data.trimmed());
 
     // 处理可能接收到的多条消息
-    QStringList messages = receivedMsg.split('\n', Qt::SkipEmptyParts);
+    QStringList messages = receivedMsg.split('\n', QString::SkipEmptyParts);
     for (const QString &msg : messages) {
         qDebug() << "Client received message:" << msg;
 

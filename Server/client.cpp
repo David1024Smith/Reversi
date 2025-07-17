@@ -8,7 +8,7 @@ Client::Client(QObject *parent)
     connect(socket, &QTcpSocket::readyRead, this, &Client::readServerData);
     connect(socket, &QTcpSocket::connected, this, &Client::handleConnection);
     connect(socket, &QTcpSocket::disconnected, this, &Client::handleDisconnection);
-    connect(socket, QOverload<QAbstractSocket::SocketError>::of(&QAbstractSocket::errorOccurred),
+    connect(socket, static_cast<void(QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error),
             this, &Client::handleError);
 }
 

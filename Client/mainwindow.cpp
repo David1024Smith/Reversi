@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 添加背景图片
     backgroundLabel = new QLabel(this);
-    QPixmap backgroundPixmap(":/images/D:/Google/Download/othello_cover_final2.png"); // 确保你的资源文件中有该图片
+    QPixmap backgroundPixmap(":/images/images/othello.png"); // 修正资源路径
     backgroundLabel->setPixmap(backgroundPixmap); // 设置背景图片
     backgroundLabel->setScaledContents(true); // 背景图像适应窗口大小
     backgroundLabel->setGeometry(0, 0, this->width(), this->height()); // 设置全屏背景

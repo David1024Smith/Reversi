@@ -41,7 +41,7 @@ void SingleWindow::setupUI() {
     aiSwitch->addItems({tr("简易"), tr("中等"), tr("困难")});
     aiSwitch->setMaximumWidth(200);
     difficultyLayout->addWidget(aiSwitch);
-   connect(aiSwitch, QOverload<int>::of(&QComboBox::activated), this, &SingleWindow::changeAiMode);
+   connect(aiSwitch, static_cast<void(QComboBox::*)(int)>(&QComboBox::activated), this, &SingleWindow::changeAiMode);
 
     // 颜色选择
     QHBoxLayout *colorLayout = new QHBoxLayout();
@@ -97,30 +97,6 @@ void SingleWindow::setupUI() {
 
     rightPanelLayout->addWidget(controlButtonsGroup);
 
-    // 棋局分析图表区域
-    // QGroupBox *chartGroup = new QGroupBox(tr("棋局分析"));
-    // QVBoxLayout *chartLayout = new QVBoxLayout(chartGroup);
-
-    // QChart *chart = new QChart();
-    // QLineSeries *seriesBlack = new QLineSeries();
-    // seriesBlack->append(0, 2); // 初始数据
-    // seriesBlack->setName(tr("黑子"));
-    // QLineSeries *seriesWhite = new QLineSeries();
-    // seriesWhite->append(0, 2); // 初始数据
-    // seriesWhite->setName(tr("白子"));
-
-    // chart->addSeries(seriesBlack);
-    // chart->addSeries(seriesWhite);
-    // chart->createDefaultAxes();
-    // chart->setTitle(tr("棋子数目变化"));
-
-    // QChartView *chartView = new QChartView(chart);
-    // chartView->setRenderHint(QPainter::Antialiasing);
-    // chartView->setMinimumHeight(250);  // 设置图表的最小高度
-    // chartView->setMaximumHeight(300);  // 设置图表的最大高度以避免过大
-    // chartLayout->addWidget(chartView);
-
-    // rightPanelLayout->addWidget(chartGroup);
 
     QWidget *rightPanel = new QWidget();
     rightPanel->setLayout(rightPanelLayout);
